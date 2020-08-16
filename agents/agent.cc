@@ -696,6 +696,13 @@ static int JetsonSocket(int sockType, const char *sEngDir, const char *sEngExeNa
 	return 0;
 }
 
+#if defined(_WIN32)
+static bool FileExists(const string &fileName)
+{
+    return _access_s(fileName.c_str(), 0) == 0;
+}
+#endif
+
 static void *EngineLaunchThread(void *data)
 {
 	struct EngineEntry *pTmpEngEntry = (struct EngineEntry *)data;
@@ -719,7 +726,7 @@ static void *EngineLaunchThread(void *data)
 	//check if engine exe exists
 	ostringstream ossEngExeFullPath;
 	ossEngExeFullPath << ossEngDir.str() << sEngExe;
-	if (!IsFileExist(ossEngExeFullPath.str().c_str())) {
+	if (!FileExists(ossEngExeFullPath.str().c_str())) {
 		JetsonWriteLogs("ERROR: engine executable path (%s) not exist\n", ossEngExeFullPath.str().c_str());		
 	}
 	else {
@@ -853,7 +860,7 @@ static void JetsonScanAndLoadEngines(SOCKET sockClient, int bIsScan)
 				}
 #endif
 				//check if engine folder exists
-				if (!IsFileExist(sEngName.c_str()))
+				if (!FileExists(sEngName.c_str()))
 				{
 					JetsonWriteLogs("ERROR: Engine folder(%s) doesn't exist\n", sEngName.c_str());
 					continue;

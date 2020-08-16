@@ -60,6 +60,7 @@
 	#pragma comment(lib, "ws2_32.lib")
 	#include <windows.h>
 	#include <direct.h>
+	#include <io.h>
 #else
 	#include <sys/socket.h>
 	#include <netinet/in.h>
@@ -87,6 +88,7 @@
 	#define GetCurrDir getcwd
 	#define SleepMsec(msec) this_thread::sleep_for(chrono::milliseconds(msec))
 	#define CloseHandle(h) close(h)
+	#define FileExists(f) IsFileExist(f)
 	#define SOCKET int
 	#define HANDLE int
 #endif
@@ -150,7 +152,7 @@ enum OsArch {
 
 #define STR_MGMT_PORT (char *)"53350"
 
-#define BUILD_NUMBER (char *)"v2.2008.1505"
+#define BUILD_NUMBER (char *)"v2.2008.1601"
 
 static inline const std::string GetCurrentDateTime()
 {
