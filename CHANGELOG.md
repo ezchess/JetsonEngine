@@ -1,6 +1,9 @@
 ## Version 2.0
 
-### August 15, 2020: [Jetson Engine v2](http://www.ezchess.org/jetson_v2/UserGuide.html) build 2008.1505
+### August 16, 2020: [Jetson Engine v2](http://www.ezchess.org/jetson_v2/UserGuide.html) build 2008.1601
+* Fixed a bug in Windows agent.
+
+### August 15, 2020: Jetson Engine v2 build 2008.1505
 * Added client support for Linux. UCI engine tested in Ubuntu 18.04.
 * Added client support Mac OS. UCI engine tested with HIARCS Chess Explorer in macOS Catalina.
 * Fixed a few bugs.
