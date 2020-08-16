@@ -1,6 +1,6 @@
 ## Version 2.0
 
-### August 16, 2020: [Jetson Engine v2](http://www.ezchess.org/jetson_v2/UserGuide.html) build 2008.1505
+### August 15, 2020: [Jetson Engine v2](http://www.ezchess.org/jetson_v2/UserGuide.html) build 2008.1505
 * Adding client support for Linux and Mac OS. HIARCS Chess Explorer is tested.
 * Fixed a few bugs.
 
