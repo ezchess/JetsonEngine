@@ -1,3 +1,8 @@
+## Version 3.0 (In progress)
+
+### September 26, 2021: Cloud engine enhancement
+* Added customized management port so that port forwarding can re-direct scan/query requests to multiple backend nodes. 
+
 ## Version 2.0
 
 ### August 16, 2020: [Jetson Engine v2](http://www.ezchess.org/jetson_v2/UserGuide.html) build 2008.1601
