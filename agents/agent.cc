@@ -54,6 +54,8 @@ static char gsJreHeader[MAX_NAME_LEN] = "";
 static int gOsArchId = OS_ARCH_UNKNOWN;
 
 static char *gsAgentConfFile = (char *)"jetson_agent.conf";
+static char *gsMgmtPortFile = (char *)"mgmt.port";
+static string gsMgmtPortStr = STR_MGMT_PORT;
 
 char gsMyHostName[MAX_NAME_LEN] = "UNKNOWN_SERVER";
 pthread_mutex_t gLogFileLock;
@@ -919,7 +921,7 @@ static void JetsonScanAndLoadEngines(SOCKET sockClient, int bIsScan)
 static void *JetsonMgmtThread(void *data)
 {
 	JetsonWriteLogs(">>> Entered JetsonMgmtThread\n");
-	JetsonSocket(SOCK_TYPE_MGMT, NULL, NULL, STR_MGMT_PORT, NULL, NULL);
+	JetsonSocket(SOCK_TYPE_MGMT, NULL, NULL, gsMgmtPortStr.c_str(), NULL, NULL);
 	JetsonWriteLogs("<<< Exited JetsonMgmtThread\n");
 	
 	return NULL;
@@ -974,6 +976,18 @@ int main()
 		pthread_mutex_init(&gJetsonTableLock, NULL);
 		memset((void *)gEngineTables, 0, sizeof(EngineEntry) * MAX_NUM_ENGINE);
 		JetsonWriteLogs("total engine table size = %ld\n", sizeof(EngineEntry) * MAX_NUM_ENGINE);
+		
+		//----- load customized mgmt port -----
+		ifstream myMgmtPortFile(gsMgmtPortFile);
+		if (myMgmtPortFile) {
+			string mgmtPortStr;
+			myMgmtPortFile >> mgmtPortStr;
+			if (mgmtPortStr != "" && mgmtPortStr != gsMgmtPortStr) {
+				gsMgmtPortStr = mgmtPortStr;
+			}
+			myMgmtPortFile.close();
+		}
+		JetsonWriteLogs("MGMT TCP Port = %s\n", gsMgmtPortStr.c_str());
 	
 		//----- launch management thread for scan and query -----
 		pthread_t mgmtThreadId;

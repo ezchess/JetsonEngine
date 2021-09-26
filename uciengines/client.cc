@@ -251,10 +251,13 @@ int main(int argc, char *argv[])
 	/* engine server scan or query */
 	if (argc >= 3 &&
 		strcmp(sThisExeFileName, gsJetsonScanFile) == 0) {
+		string mgmtPortStr = STR_MGMT_PORT;
+		if (argc >= 4)
+			mgmtPortStr = argv[3];
 		if (strcmp(argv[1], "scan") == 0) {
 			gbScanNeeded = 1;
 			strncpy(sServIp, argv[2], STR_IPADDR_SIZE);
-			strncpy(sServPort, STR_MGMT_PORT, STR_TCPPORT_SIZE);
+			strncpy(sServPort, mgmtPortStr.c_str(), STR_TCPPORT_SIZE);
 			
 			printf("scanning server %s on port %s\n", sServIp, sServPort);
 		}
@@ -262,18 +265,21 @@ int main(int argc, char *argv[])
 		if (strcmp(argv[1], "query") == 0) {
 			gbQueryNeeded = 1;
 			strncpy(sServIp, argv[2], STR_IPADDR_SIZE);
-			strncpy(sServPort, STR_MGMT_PORT, STR_TCPPORT_SIZE);
+			strncpy(sServPort, mgmtPortStr.c_str(), STR_TCPPORT_SIZE);
 			
 			printf("query server %s on port %s\n", sServIp, sServPort);
 		}
 	}
 	else if (strcmp(sThisExeFileName, gsJetsonScanFile) == 0) {
 		printf("Incorrect syntax\n");
-		printf("To scan agent run: jetson_scan scan <agent ip address>\n");
-		printf("To query agent run: jetson_scan query <agent ip address>\n");
+		printf("To scan agent run: jetson_scan scan <agent ip address> [mgmt_port]\n");
+		printf("To query agent run: jetson_scan query <agent ip address> [mgmt_port]\n");
+		printf("Note: mgmt_port is optional. Default port = 53350.\n");
 		printf("Example:\n");
 		printf("jetson_scan scan 192.168.55.1\n");
+		printf("jetson_scan scan 192.168.55.1 61234\n");
 		printf("jetson_scan query 192.168.55.1\n");
+		printf("jetson_scan query 192.168.55.1 61234\n");
 		return 0;
 	}
 	else {	//JRE engine
