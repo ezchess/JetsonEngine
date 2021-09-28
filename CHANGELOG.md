@@ -3,6 +3,22 @@
 ### September 26, 2021: Cloud engine enhancement
 * Added customized management port so that port forwarding can re-direct scan/query requests to multiple backend nodes. 
 
+### August 26, 2021: Lc0 benchmark from different JP/cuDNN combinations
+* With latest JetPack 4.6 + cuDNN 8.2 released on 8/4/2021, a major performance issue with cuDNN 8.0 is fixed. I benchmark latest [Lc0 0.28.0](https://github.com/LeelaChessZero/lc0/releases/tag/v0.28.0) with weights 256x20-t40-1541.pb.gz. Surprisingly, older JP4.4/cuDNN 7.6 still performs best.
+```
+JetPack    cuDNN        PowerMode           Performance (Nodes/second)
+
+JP 4.6     cuDNN 8.2    8 (20W, 6-Core)     1693
+
+                        6 (20W, 2-Core)     1936
+
+                        0 (15W, 2-Core)     1777
+			
+           cuDNN 7.6    6 (20W, 2-Core)     1972
+			
+JP 4.4     cuDNN 7.6    0 (15W, 2-Core)     2400
+```
+
 ## Version 2.0
 
 ### August 16, 2020: [Jetson Engine v2](http://www.ezchess.org/jetson_v2/UserGuide.html) build 2008.1601
