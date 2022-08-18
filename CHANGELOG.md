@@ -1,4 +1,29 @@
-## Version 3.0 (In progress)
+### August 17, 2022: Lc0 benchmark for Jetson AGX Orin
+* [JetPack 5.0.2](https://developer.nvidia.com/embedded/downloads) released on 8/15/2022. I benchmark latest [Lc0 development version](https://github.com/LeelaChessZero/lc0) with weights 256x20-t40-1541.pb.gz, and performance reaches 19359 nps. AGX Orin shows 8x performance boost than Xavier NX. [Lc0 networks](https://lczero.org/play/networks/bestnets/) has removed t40-1541. Please use the latest networks for engine evaluations.
+
+```
+jetson@agxorin:~/lc0/build/release$ ./lc0 benchmark --backend=cuda-fp16
+       _
+|   _ | |
+|_ |_ |_| v0.30.0-dev+git.dirty built Aug 17 2022
+Loading weights file from: ./256x20-t40-1541.pb.gz
+Creating backend [cuda-fp16]...
+CUDA Runtime version: 11.4.0
+Latest version of CUDA supported by the driver: 11.4.0
+GPU: Orin
+GPU memory: 29.8203 Gb
+GPU clock frequency: 1300 MHz
+GPU compute capability: 8.7
+. . . . . .
+. . . . . .
+
+===========================
+Total time (ms) : 341324
+Nodes searched  : 6607875
+Nodes/second    : 19359
+```
+
+## Version 2.1
 
 ### September 26, 2021: Cloud engine enhancement
 * Added customized management port so that port forwarding can re-direct scan/query requests to multiple backend nodes. 
